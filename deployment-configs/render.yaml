@@ -1,0 +1,43 @@
+# Render.com Blueprint Configuration
+# Deploy: Connect GitHub repo, Render auto-detects this file
+
+services:
+  - type: web
+    name: telegram-bot-ollama
+    env: docker
+    region: oregon # or your preferred region
+    plan: standard # $25/mo - needed for Ollama (2GB RAM minimum)
+    dockerfilePath: ./deployment-configs/Dockerfile
+    
+    # Environment variables (set in Render dashboard)
+    envVars:
+      - key: TELEGRAM_API_ID
+        sync: false # Set manually in dashboard
+      - key: TELEGRAM_API_HASH
+        sync: false
+      - key: TELEGRAM_PHONE
+        sync: false
+      - key: CLAUDE_API_KEY
+        sync: false # Optional: fallback AI
+      - key: GEMINI_API_KEY
+        sync: false # Optional: fallback AI
+      - key: OLLAMA_MODEL
+        value: llama2 # Change to: mistral, codellama, etc.
+    
+    # Persistent disk for learning data
+    disk:
+      name: bot-learning-data
+      mountPath: /app/data
+      sizeGB: 10
+    
+    # Health check endpoint (optional)
+    healthCheckPath: /health
+    
+    # Auto-deploy on git push
+    autoDeploy: true
+    
+    # Build command (optional, Dockerfile handles this)
+    # buildCommand: npm install
+    
+    # Start command (handled by Dockerfile CMD)
+    # startCommand: /app/start.sh

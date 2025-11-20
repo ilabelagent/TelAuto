@@ -1,0 +1,33 @@
+# AWS App Runner Configuration
+# Deploy: aws apprunner create-service --cli-input-yaml file://aws-apprunner.yaml
+
+version: 1.0
+runtime: nodejs20
+
+build:
+  commands:
+    build:
+      - echo "Building Docker image..."
+      - docker build -f deployment-configs/Dockerfile -t telegram-bot .
+
+run:
+  runtime-version: 20
+  command: /app/start.sh
+  
+  network:
+    port: 8080
+    env:
+      - name: TELEGRAM_API_ID
+        value: "YOUR_API_ID"
+      - name: TELEGRAM_API_HASH
+        value: "YOUR_API_HASH"
+      - name: OLLAMA_MODEL
+        value: "llama2"
+  
+  # App Runner doesn't support persistent volumes well
+  # Consider using EFS or S3 for learning data
+  secrets:
+    - name: TELEGRAM_API_ID
+      value-from: arn:aws:secretsmanager:REGION:ACCOUNT:secret:telegram-api-id
+    - name: TELEGRAM_API_HASH  
+      value-from: arn:aws:secretsmanager:REGION:ACCOUNT:secret:telegram-api-hash

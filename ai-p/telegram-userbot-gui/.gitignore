@@ -1,0 +1,7 @@
+node_modules/
+dist/
+*.log
+intelligent-userbot-config.json
+learning-data.json
+.env
+.DS_Store

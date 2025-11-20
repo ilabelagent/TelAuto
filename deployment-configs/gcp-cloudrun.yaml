@@ -1,0 +1,56 @@
+# Google Cloud Run Configuration
+# Deploy: gcloud run services replace gcp-cloudrun.yaml
+
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: telegram-bot-ollama
+  annotations:
+    run.googleapis.com/launch-stage: BETA
+spec:
+  template:
+    metadata:
+      annotations:
+        # Increase memory for Ollama models
+        run.googleapis.com/memory: 4Gi
+        run.googleapis.com/cpu: 2
+        # Persistent storage (Cloud Storage FUSE)
+        run.googleapis.com/execution-environment: gen2
+    spec:
+      containers:
+      - image: gcr.io/YOUR-PROJECT-ID/telegram-bot-ollama:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: TELEGRAM_API_ID
+          valueFrom:
+            secretKeyRef:
+              name: telegram-api-id
+              key: latest
+        - name: TELEGRAM_API_HASH
+          valueFrom:
+            secretKeyRef:
+              name: telegram-api-hash
+              key: latest
+        - name: OLLAMA_MODEL
+          value: "llama2"
+        
+        resources:
+          limits:
+            memory: 4Gi
+            cpu: 2
+        
+        # Volume for learning data
+        volumeMounts:
+        - name: data
+          mountPath: /app/data
+      
+      volumes:
+      - name: data
+        emptyDir:
+          medium: Memory
+          sizeLimit: 1Gi
+  
+  traffic:
+  - percent: 100
+    latestRevision: true

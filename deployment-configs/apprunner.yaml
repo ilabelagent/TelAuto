@@ -1,0 +1,33 @@
+# AWS App Runner Configuration
+# Auto-detected by App Runner when deploying from source
+
+version: 1.0
+
+runtime: python3.11
+
+build:
+  commands:
+    build:
+      - echo "Building Docker container for App Runner..."
+      # App Runner will use the Dockerfile automatically
+
+run:
+  runtime-version: 3.11
+  command: /app/start.sh
+  network:
+    port: 8080
+    env:
+      - name: PORT
+        value: "8080"
+      - name: OLLAMA_MODEL
+        value: "llama2"
+  
+  # Environment variables (set in App Runner console or CLI)
+  # These will be configured during deployment
+  env:
+    - name: TELEGRAM_API_ID
+      value: "SET_IN_CONSOLE"
+    - name: TELEGRAM_API_HASH
+      value: "SET_IN_CONSOLE"
+    - name: TELEGRAM_PHONE
+      value: "SET_IN_CONSOLE"
