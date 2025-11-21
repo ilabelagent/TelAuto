@@ -14,16 +14,16 @@ NC='\033[0m' # No Color
 echo -e "${BLUE}"
 echo "═══════════════════════════════════════════════════════════"
 echo "   🚀 AUTOMATED CLOUD RUN DEPLOYMENT"
-echo "   Project: ilabeliman"
+echo "   Project: peaceful-access-473817-v1"
 echo "   Service: telegram-bot-ollama"
 echo "═══════════════════════════════════════════════════════════"
 echo -e "${NC}"
 
 # Configuration
-PROJECT_ID="ilabeliman"
+PROJECT_ID="peaceful-access-473817-v1"
 SERVICE_NAME="telegram-bot-ollama"
 REGION="us-central1"
-SERVICE_ACCOUNT_KEY="../ilabeliman-6dace734925e.json"
+SERVICE_ACCOUNT_KEY="../peaceful-access-473817-v1-41aa6d82cbda.json"
 IMAGE_NAME="gcr.io/${PROJECT_ID}/${SERVICE_NAME}"
 
 # Check if service account key exists
