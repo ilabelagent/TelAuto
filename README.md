@@ -1,6 +1,6 @@
 # 🤖 TelAuto - Intelligent Telegram Bot with Ollama
 
-Self-learning Telegram bot powered by Ollama (local LLM) with multi-cloud deployment options.
+Self-learning Telegram bot powered by Ollama (local LLM) with multi-cloud deployment options. This module operates as a standalone service within the larger **Valifi Kingdom Platform**.
 
 ---
 
@@ -13,6 +13,14 @@ Self-learning Telegram bot powered by Ollama (local LLM) with multi-cloud deploy
 - ⚡ **Multi-Platform** - Deploy to AWS, GCP, Render, or run locally
 - 🔐 **Secure** - Uses Secrets Manager for credentials
 - 📊 **Analytics** - Tracks performance and learning metrics
+
+## Integration with Valifi Kingdom Platform
+
+This module is designed to integrate seamlessly with the main Valifi Kingdom Platform, leveraging shared services for memory management and service discovery.
+
+*   **Unified Memory:** Utilizes the `UnifiedMemoryBridge` for persistent learning and context sharing, specifically for chat logs and learned patterns.
+*   **Module Interface:** Adheres to the `ModuleInterface` contract for standardized lifecycle management and communication within the platform.
+*   **Service Registry:** Registers with the central `ServiceRegistry` for dynamic discovery and health monitoring by the main platform orchestrator.
 
 ---
 
@@ -89,7 +97,7 @@ node intelligent-telegram-userbot.js
 ## 📁 Project Structure
 
 ```
-ai-chat-system/
+.
 ├── telbot/                          # Main bot code
 │   ├── intelligent-telegram-userbot.js  # Core bot logic
 │   ├── package.json                 # Dependencies
@@ -138,6 +146,7 @@ Detailed guides in `deployment-configs/`:
 - **DEPLOYMENT_SUMMARY.md** - Platform comparison and recommendations
 - **AUTOMATED_DEPLOYMENT.md** - GCP automated deployment
 - **QUICKSTART_AWS.md** - 5-minute AWS guide
+- **[Platform Overview](../../README.md)** - Overview of the Valifi Kingdom Platform
 
 ---
 
@@ -212,7 +221,7 @@ The `.gitignore` file protects these automatically.
 - AWS: https://docs.aws.amazon.com/apprunner/
 - GCP: https://cloud.google.com/run/docs
 - Render: https://render.com/docs
-- Ollama: https://github.com/ollama/ollama
+- Ollama: https://ollama.com/library
 
 ---
 
